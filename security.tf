@@ -1,8 +1,8 @@
-#Declaring security group for Clixx
+#Declaring security group for Blog
 resource "aws_security_group" "stack-sg-main" {
   vpc_id = var.vpc_id
   name        = "stack_web_dmz_terraform"
-  description = "Stack IT Security Group For CliXX System"
+  description = "Stack IT Security Group For Blog System"
   tags = {
     Name        = "stack_web_dmz_terraform"
     Environment = "Production"

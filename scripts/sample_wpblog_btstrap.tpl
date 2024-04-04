@@ -96,18 +96,18 @@ done
 
 echo "Mount points created and Disks successfully mounted!"
 
-#CLIXX
+#WP_BLOG
 usermod -a -G apache ec2-user
 chown -R ec2-user:apache /var/www
 chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
 find /var/www -type f -exec sudo chmod 0664 {} \;
 cd ${MOUNT_POINT}
 sudo chmod -R 755 ${MOUNT_POINT}
-if [ -d "CliXX_Retail_Repository" ]; then
-    echo "CliXX_Retail_Repository exists, skipping copy and clone commands." 
+if [ -d "wordpress_blog" ]; then
+    echo "wordpress_blog exists, skipping copy and clone commands." 
 else
     git clone ${GIT_REPO}
-    cp -r CliXX_Retail_Repository/* ${MOUNT_POINT}
+    cp -r wordpress_blog/* ${MOUNT_POINT}
 fi
 
 
@@ -116,7 +116,7 @@ fi
 WP_CONFIG=${MOUNT_POINT}/wp-config.php
 
 #Replacing DB Hostname in wp-config.php file to Correct 
-sed -i "s/'wordpress-db.cc5iigzknvxd.us-east-1.rds.amazonaws.com'/'${DB_HOST}'/g" $WP_CONFIG
+sed -i "s/'wordpressinstance.cdctvskkaib7.us-east-1.rds.amazonaws.com'/'${DB_HOST}'/g" $WP_CONFIG
 #sed -i "s/'restored-db-clixx.cdctvskkaib7.us-east-1.rds.amazonaws.com'/'${DB_HOST}'/g" $WP_CONFIG
 
 
@@ -140,8 +140,6 @@ systemctl restart httpd
 ##Enable httpd
 /sbin/sysctl -w net.ipv4.tcp_keepalive_time=200 net.ipv4.tcp_keepalive_intvl=200 net.ipv4.tcp_keepalive_probes=5
 
-
-# ##Update domain name via option_name
-# mysql -h "${DB_HOST}" -u "${DB_USER_CLIXX}" -p"${DB_PASS_CLIXX}" "${DB_NAME_CLIXX}" <<EOF
-# UPDATE wp_options SET option_value = '${CLIXX_LB}' WHERE option_name = 'siteurl';
+# mysql -h "${DB_HOST}" -u "${DB_USER_BLOG}" -p"${DB_PASS_BLOG}" "${DB_NAME_BLOG}" <<EOF
+# UPDATE wp_options SET option_value = '${BLOG_LB}' WHERE option_name = 'site_url';
 # EOF

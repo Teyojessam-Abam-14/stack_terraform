@@ -15,8 +15,8 @@ resource "aws_lb" "stack-lb" {
 }
 
 #Declaring target group
-resource "aws_lb_target_group" "stack-clixx-tg" {
-  name     = "Stack-ClIXX"
+resource "aws_lb_target_group" "stack-blog-tg" {
+  name     = "Stack-Blog"
   port     = 80
   protocol = "HTTP"
   vpc_id = var.vpc_id
@@ -61,27 +61,26 @@ resource "aws_key_pair" "Stack_KP" {
 }
 
 #Declaring listener for load balancer with target group
-resource "aws_lb_listener" "clixx-listener" {
+resource "aws_lb_listener" "blog-listener" {
   load_balancer_arn = aws_lb.stack-lb.arn
   port              = 80
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.stack-clixx-tg.arn
+    target_group_arn = aws_lb_target_group.stack-blog-tg.arn
   }
 }
 
-#Declaring Launch template for Clixx
+#Declaring Launch template for Blog
 resource "aws_launch_template" "terraform_lt" {
-  name                   = var.clixx_name
+  name                   = var.blog_name
   vpc_security_group_ids = [aws_security_group.stack-sg-main.id]
   user_data              = base64encode(data.template_file.bootstrap.rendered)
   image_id               = data.aws_ami.stack_ami.id
   instance_type          = var.instance_type
   key_name = aws_key_pair.Stack_KP.key_name
 
-#Declaring EBS Volumes
   block_device_mappings {
     device_name = "/dev/sdb"
 
@@ -137,7 +136,7 @@ resource "aws_launch_template" "terraform_lt" {
   }
 
   tags = {
-  Name = "Stack-Dev-Template-TF"
+  Name = "Stack-Dev-Server-TF"
   Environment = var.environment
   OwnerEmail = var.OwnerEmail
 }
@@ -156,7 +155,7 @@ resource "aws_autoscaling_group" "terraform_asg"{
     version = "$Latest"
   }
 
-  target_group_arns = [aws_lb_target_group.stack-clixx-tg.arn]
+  target_group_arns = [aws_lb_target_group.stack-blog-tg.arn]
 
   min_size = 2
   max_size = 4
@@ -164,7 +163,7 @@ resource "aws_autoscaling_group" "terraform_asg"{
   health_check_type         = "EC2"
   desired_capacity          = 4
   vpc_zone_identifier = data.aws_subnets.selected.ids
-  
+
   tag {
     key                 = "Name"
     value               = "Stack-Dev-Server-TF"
