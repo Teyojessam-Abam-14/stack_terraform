@@ -1,8 +1,8 @@
-variable "AWS_ACCESS_KEY" {}
-variable "AWS_SECRET_KEY" {}
-variable "AWS_REGION" {
-  default = "us-west-2"
-}
+# variable "AWS_ACCESS_KEY" {}
+# variable "AWS_SECRET_KEY" {}
+# variable "AWS_REGION" {
+#   default = "us-west-2"
+# }
 variable "server" {
   default="serv"
 }
@@ -55,8 +55,8 @@ variable "OwnerEmail" {
   default = "teyojessam.abam@gmail.com"
 }
 
-variable "DB_NAME" {}
-variable "DB_USER" {}
-variable "DB_PASSWORD" {}
-variable "snapshot_identifier" {}
+# variable "DB_NAME" {}
+# variable "DB_USER" {}
+# variable "DB_PASSWORD" {}
+# variable "snapshot_identifier" {}
 

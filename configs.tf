@@ -7,9 +7,9 @@ data "template_file" "bootstrap" {
       EFS_DNS = aws_efs_file_system.terraform_efs.dns_name
       DB_HOST = local.DB_HOST_BLOG
       BLOG_LB = aws_lb.stack-lb.dns_name
-      DB_NAME_BLOG = var.DB_NAME
-      DB_PASS_BLOG = var.DB_PASSWORD
-      DB_USER_BLOG = var.DB_USER
+      # DB_NAME_BLOG = var.DB_NAME
+      # DB_PASS_BLOG = var.DB_PASSWORD
+      # DB_USER_BLOG = var.DB_USER
     }
 }
 
