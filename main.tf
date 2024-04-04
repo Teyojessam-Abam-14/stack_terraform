@@ -164,7 +164,7 @@ resource "aws_autoscaling_group" "terraform_asg"{
   health_check_type         = "EC2"
   desired_capacity          = 4
   vpc_zone_identifier = data.aws_subnets.selected.ids
-
+  
   tag {
     key                 = "Name"
     value               = "Stack-Dev-Server-TF"
