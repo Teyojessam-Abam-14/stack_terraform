@@ -140,6 +140,6 @@ systemctl restart httpd
 ##Enable httpd
 /sbin/sysctl -w net.ipv4.tcp_keepalive_time=200 net.ipv4.tcp_keepalive_intvl=200 net.ipv4.tcp_keepalive_probes=5
 
-# mysql -h "${DB_HOST}" -u "${DB_USER_BLOG}" -p"${DB_PASS_BLOG}" "${DB_NAME_BLOG}" <<EOF
-# UPDATE wp_options SET option_value = '${BLOG_LB}' WHERE option_name = 'site_url';
-# EOF
+mysql -h "${DB_HOST}" -u "${DB_USER_BLOG}" -p"${DB_PASS_BLOG}" "${DB_NAME_BLOG}" <<EOF
+UPDATE wp_options SET option_value = '${BLOG_LB}' WHERE option_name = 'site_url';
+EOF
