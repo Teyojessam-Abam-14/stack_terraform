@@ -4,9 +4,9 @@ resource "aws_key_pair" "Stack_KP" {
   public_key = file(var.PATH_TO_PUBLIC_KEY)
 }
 
-#Declaring Launch template for Clixx
+#Declaring Launch template for Blog
 resource "aws_launch_template" "terraform_lt" {
-  name                   = var.clixx_name
+  name                   = var.blog_name
   vpc_security_group_ids = var.security_groups
   user_data              = var.bootstrap_file
   image_id               = var.ami 

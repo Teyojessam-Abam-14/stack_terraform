@@ -1,4 +1,4 @@
-variable clixx_name{
+variable blog_name{
     type = string
 }
 

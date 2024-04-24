@@ -11,7 +11,7 @@ resource "aws_lb" "stack-lb" {
 }
 
 #Declaring target group
-resource "aws_lb_target_group" "stack-clixx-tg" {
+resource "aws_lb_target_group" "stack-blog-tg" {
   name     = var.tg_name
   port     = var.TG_DETAILS["port"]
   protocol = var.TG_DETAILS["protocol"]
@@ -31,14 +31,14 @@ resource "aws_lb_target_group" "stack-clixx-tg" {
 }
 
 #Declaring listener for load balancer with target group
-resource "aws_lb_listener" "clixx-listener" {
+resource "aws_lb_listener" "blog-listener" {
   load_balancer_arn = aws_lb.stack-lb.arn
   port              = var.LISTEN_DETAILS["port"]
   protocol          = var.LISTEN_DETAILS["protocol"]
-
+ 
   default_action {
     type             = var.LISTEN_DETAILS["default_action_type"]
-    target_group_arn = aws_lb_target_group.stack-clixx-tg.arn
+    target_group_arn = aws_lb_target_group.stack-blog-tg.arn
   }
 }
 
@@ -55,7 +55,7 @@ resource "aws_autoscaling_group" "terraform_asg"{
     version = var.ASG_DETAILS["launch_template_version"]
   }
 
-  target_group_arns = [aws_lb_target_group.stack-clixx-tg.arn]
+  target_group_arns = [aws_lb_target_group.stack-blog-tg.arn]
 
   min_size = var.ASG_DETAILS["min_size"]
   max_size = var.ASG_DETAILS["max_size"]

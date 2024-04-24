@@ -1,4 +1,4 @@
-#Restores RDS database via shared snapshot for Clixx
+#Restores RDS database via shared snapshot for Blog
  
  resource "aws_db_instance" "restored_db" {
   allocated_storage    = var.RDS_DETAILS["allocated_storage"]  # Size of the storage in GB

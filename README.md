@@ -1,2 +1,1 @@
-# stack_terraform
-Terraform Modules for Clixx
+Terraform Modules for Blog
