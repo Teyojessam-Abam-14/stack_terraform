@@ -12,8 +12,9 @@ resource "aws_efs_file_system" "terraform_efs" {
 
 #Declaring the created-EFS file system as a mount target
 resource "aws_efs_mount_target" "terraform_efs_mount" {
-  count           = length(var.subnets)
+  count           = length(var.subnets) >= 4 ? 2 : 0
   file_system_id = aws_efs_file_system.terraform_efs.id
   subnet_id   =  var.subnets[count.index] 
   security_groups = var.security_groups
+  depends_on      = [aws_efs_file_system.terraform_efs]
 }

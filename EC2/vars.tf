@@ -1,36 +1,29 @@
-variable "AWS_REGION" {
-  default = "us-east-1"
-}
-
 variable "ami" {
   type = string
 }
 
-variable "vpc_id" {}
-
 variable "subnets" {
-  type = list(string)
+  type = any
 }
 
 variable "security_groups" {
   type = list(string)
 }
 
-variable "EC2_DETAILS" {}
-
-variable "availability_zone" {
-  default = "us-east-1c"
+variable "s3_access" {
+  type = string
 }
 
-variable "PATH_TO_PUBLIC_KEY" {}
-   
-# variable "required_tags" {
-#   type = list(object({
-#     instance_name = string
-#     environment = string
-#     OwnerEmail = string
-#   }))
-# }
+variable "availability_zones" {
+  type = list(string)
+}
 
+variable "EC2_DETAILS" {}
+
+variable "PATH_TO_PUBLIC_KEY" {}
 
 variable "bootstrap_file" {}
+
+# variable "required_tags" {
+#   type = any
+# }

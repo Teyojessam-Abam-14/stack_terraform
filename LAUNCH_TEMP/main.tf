@@ -1,9 +1,3 @@
-#Declaring key pair with public key
-resource "aws_key_pair" "Stack_KP" {
-  key_name   = "stackkp"
-  public_key = file(var.PATH_TO_PUBLIC_KEY)
-}
-
 #Declaring Launch template for Clixx
 resource "aws_launch_template" "terraform_lt" {
   name                   = var.clixx_name
@@ -11,7 +5,7 @@ resource "aws_launch_template" "terraform_lt" {
   user_data              = var.bootstrap_file
   image_id               = var.ami 
   instance_type          = var.LT_DETAILS["instance_type"]
-  key_name = aws_key_pair.Stack_KP.key_name
+  key_name = var.PRIVATE_KEY
 
 #Declaring EBS Volumes
   block_device_mappings {
@@ -67,6 +61,4 @@ resource "aws_launch_template" "terraform_lt" {
      delete_on_termination = var.LT_DETAILS["delete_on_termination"]
     }
   }
-
-  #tags=var.required_tags[count.index]
 }

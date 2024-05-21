@@ -7,7 +7,18 @@ resource "aws_lb" "stack-lb" {
   subnets            = var.subnet_ids
   enable_deletion_protection = var.LB_DETAILS["enable_deletion_protection"]
   enable_cross_zone_load_balancing = var.LB_DETAILS["enable_cross_zone_load_balancing"]
-  #tags=var.required_tags[count.index]
+}
+
+#Declaring a Route53 record using an existing domain name and hosted zone
+resource "aws_route53_record" "clixx_53_record" {
+  zone_id = var.hosted_zone_id
+  name    = var.domain_name
+  type    = var.ROUTE53_DETAILS["record_type"]
+  alias {
+    name                   = aws_lb.stack-lb.dns_name
+    zone_id                = aws_lb.stack-lb.zone_id
+    evaluate_target_health = var.ROUTE53_DETAILS["evaluate_target_health"]
+  }
 }
 
 #Declaring target group
@@ -62,7 +73,10 @@ resource "aws_autoscaling_group" "terraform_asg"{
   health_check_grace_period = var.ASG_DETAILS["health_check_grace_period"]
   health_check_type         = var.ASG_DETAILS["health_check_type"]
   desired_capacity          = var.ASG_DETAILS["desired_capacity"]
-  vpc_zone_identifier = var.subnets
+  vpc_zone_identifier = [
+    var.private_subnet_c,  # private_subnet_clixx_1a
+    var.private_subnet_d   # private_subnet_clixx_1b
+  ]
   
   #Tagged name for servers
   tag {

@@ -26,4 +26,12 @@ variable "snapshot_identifier" {
     type = string
 }
 
+variable "private_subnet_a" {
+  type = string
+}
+
+variable "private_subnet_b" {
+  type = string
+}
+
 variable "RDS_DETAILS" {}

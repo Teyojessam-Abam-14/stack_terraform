@@ -10,18 +10,12 @@ variable "ami" {
   type = string
 }
 
-# variable "required_tags" {
-#   type = list(object({
-#     instance_name = string
-#     environment = string
-#     OwnerEmail = string
-#   }))
-# }
+variable "PRIVATE_KEY" {
+  type = string
+}
  
 variable "EBS_DEVICES" {} 
 
 variable "LT_DETAILS" {}   
-
-variable "PATH_TO_PUBLIC_KEY" {}
 
 variable "bootstrap_file" {}

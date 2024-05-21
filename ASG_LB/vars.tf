@@ -6,8 +6,12 @@ variable "security_groups" {
   type = list(string)
 }
 
-variable "subnets"{
-  type = list(string)
+variable "private_subnet_c"{
+  type = string
+}
+
+variable "private_subnet_d"{
+  type = string
 }
 
 variable "subnet_ids" {
@@ -38,6 +42,14 @@ variable "launch_template_id" {
   type = string
 }
 
+variable "hosted_zone_id"{
+  type = string
+}
+
+variable "domain_name" {
+  type = string
+}
+
 variable "ASG_DETAILS" {}
 
 variable "LB_DETAILS" {}
@@ -47,6 +59,8 @@ variable "TG_DETAILS" {}
 variable "HEALTH_CHECK_DETAILS" {}
 
 variable "LISTEN_DETAILS" {}
+
+variable "ROUTE53_DETAILS" {}
 
 # variable "required_tags" {
 #   type = list(object({
