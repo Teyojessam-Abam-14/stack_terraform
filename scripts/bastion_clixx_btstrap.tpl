@@ -1,4 +1,4 @@
-#!/bin/bash xe
+#!/bin/bash
 
 #Downloading PEM Key from S3
 aws s3 cp s3://${S3_BUCKET}/${PEM_KEY} /home/ec2-user/${PEM_KEY}
