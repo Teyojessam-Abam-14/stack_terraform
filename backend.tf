@@ -11,3 +11,5 @@ terraform{
 
 #NB: terraform init -reconfigure (Move the state file from local to S3)
 #NB: terraform init -migrate-state (Move the state file from S3 back to local)
+
+#To "terraform init"-ialize the state file locally, hash the whole "backend" resource

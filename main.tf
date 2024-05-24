@@ -7,11 +7,10 @@ module "CORE-INFO" {
   instance_name=var.instance_name
   OwnerEmail=var.OwnerEmail,
   environment=var.environment
+  }
  }
-}
 
-#For EC2 as Bastion Hosts
-module "EC2-BASTION-BASE" {
+ module "EC2-BASTION-BASE"{
  #source="./MODULES/EC2"
  source="git::https://github.com/Teyojessam-Abam-14/stack_terraform.git//EC2?ref=stack_modules_clixx"
  count=var.stack_controls["ec2_create"] == "Y" ? 1:0 
@@ -24,10 +23,10 @@ module "EC2-BASTION-BASE" {
  s3_access=var.s3_access
  #required_tags=module.CORE-INFO[0].all_resource_tags
  bootstrap_file=base64encode(data.template_file.bastion_bootstrap.rendered)
-} 
+ } 
 
-#For EFS
-module "EFS-BASE"{
+ #For EFS
+ module "EFS-BASE"{
  #source="./MODULES/EFS"
  source="git::https://github.com/Teyojessam-Abam-14/stack_terraform.git//EFS?ref=stack_modules_clixx"
  count=var.stack_controls["efs_create"] == "Y" ? 1:0

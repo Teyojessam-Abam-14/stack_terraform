@@ -14,7 +14,7 @@ data "template_file" "clixx_bootstrap" {
   }
 }
 
-#Retrieving Clixx DB secrets from US-East-1's Secrets Manager in AWS Console (must exist already)
+#Retrieving Clixx DB secrets from US-West-2's Secrets Manager in AWS Console (must exist already)
 data "aws_secretsmanager_secret_version" "creds" {
   secret_id     = "clixx_db_secrets"
   version_stage = "AWSCURRENT"

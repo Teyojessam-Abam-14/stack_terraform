@@ -145,6 +145,6 @@ systemctl restart httpd
 /sbin/sysctl -w net.ipv4.tcp_keepalive_time=200 net.ipv4.tcp_keepalive_intvl=200 net.ipv4.tcp_keepalive_probes=5
 
 
-mysql -h "${DB_HOST}" -u "${DB_USER_CLIXX}" -p"${DB_PASS_CLIXX}" -D "${DB_NAME_CLIXX}" <<EOF
+mysql -h "${DB_HOST}" -u "${DB_USER_CLIXX}" -p"${DB_PASS_CLIXX}" "${DB_NAME_CLIXX}" <<EOF
 UPDATE wp_options SET option_value = '${CLIXX_LB}' WHERE option_name = 'siteurl';
 EOF

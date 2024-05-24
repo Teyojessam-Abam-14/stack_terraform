@@ -3,7 +3,7 @@
 #NB: (Unhash the keys above when running locally, hash these again and push to Git when running on Jenkins(due to CloudBees))
 
 variable "AWS_REGION" {
-  default = "us-east-1"
+  default = "us-west-2"
 }
 
 #AMI (Finding the specified available AMI from AWS Console)
@@ -20,7 +20,7 @@ data "aws_ami" "stack_ami" {
 
 #List of availability zones (used in the main.tf for Bastion Instance server resource in the EC2 module)
 variable "availability_zones" {
-  default = ["us-east-1a", "us-east-1b"]
+  default = ["us-west-2a", "us-west-2b"]
 }
 
 #Public key for Bastion server
@@ -30,17 +30,17 @@ variable "PATH_TO_PUBLIC_KEY" {
 
 #S3 Bucket that contains keys (must exist in AWS Console)
 variable "s3_bucket_for_keys" {
-  default = "keys-for-vpc-project"
+  default = "keys-for-vpc-project-b"
 }
 
 #Private key (must be present in AWS Console under 'Key Pairs') for the Launch Template
 variable "PRIVATE_KEY" {
-  default = "ec2_access"
+  default = "ec2_access_2"
 }
 
 #Private pem key (must exist in "s3_bucket_for_keys" S3 bucket) for the Clixx Server bootstrap
 variable "PRIVATE_PEM_KEY" {
-  default = "ec2_access.pem"
+  default = "ec2_access_2.pem"
 }
 
 #EC2 IAM role that has S3 Access (must be present in AWS Console)
@@ -294,7 +294,7 @@ variable "PRIV_RT_DETAILS"{
 variable "VPC_ENDPOINT_DETAILS" {
   type=map(string)
   default={
-    service_name="com.amazonaws.us-east-1.s3"
+    service_name="com.amazonaws.us-west-2.s3"
     name="stack-s3-endpoint-tf"
     policy_action="*"
     policy_effect="Allow"
@@ -330,7 +330,7 @@ variable "private_subnet_cidr" {
 #List of availability zones (used in the main.tf for VPC module for public and private subnet resources)
 variable "subnet_azs" {
   type    = list(any)
-  default = ["us-east-1a", "us-east-1b"]
+  default = ["us-west-2a", "us-west-2b"]
 }
 
 #List of public subnet names

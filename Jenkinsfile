@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        // Calls for the access token
+        // Calls for the access token (which was setup using AWS CloudBees credentials)
         PATH = "${PATH}:${getTerraformPath()}"
         GITHUB_TOKEN = credentials('github-personal-access-token')
     }
@@ -34,7 +34,8 @@ pipeline {
                     // Fetches the latest code from GitHub
                     checkout scm: [
                         $class: 'GitSCM', 
-                        branches: [[name: '*/stack_clixx_jenkins_whole']], 
+                        branches: [[name: '*/stack_clixx_jenkins_whole']], //Should have created another branch 
+                        // called "stack_clixx_jenkins_whole_west" first
                         userRemoteConfigs: [[
                             url: "https://${GITHUB_TOKEN}@github.com/Teyojessam-Abam-14/stack_terraform.git",
                             credentialsId: 'github-personal-access-token'
