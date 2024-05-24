@@ -34,7 +34,7 @@ pipeline {
                     // Fetches the latest code from GitHub
                     checkout scm: [
                         $class: 'GitSCM', 
-                        branches: [[name: '*/stack_clixx_jenkins_whole']], //Should have created another branch 
+                        branches: [[name: '*/stack_clixx_jenkins_whole_west']], //Should have created another branch 
                         // called "stack_clixx_jenkins_whole_west" first
                         userRemoteConfigs: [[
                             url: "https://${GITHUB_TOKEN}@github.com/Teyojessam-Abam-14/stack_terraform.git",
@@ -46,7 +46,7 @@ pipeline {
                      // Ensure the local repository is up-to-date with the remote branch
                     sh """
                     git fetch --all
-                    git reset --hard origin/stack_clixx_jenkins_whole
+                    git reset --hard origin/stack_clixx_jenkins_whole_west
                     """
                 }
             }
