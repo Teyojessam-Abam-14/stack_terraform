@@ -78,7 +78,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply -input=false tfplan'
+                sh 'terraform apply -input=false -lock=false tfplan'
             }
         }
 
@@ -94,7 +94,7 @@ pipeline {
 
         stage('Terraform Destroy') {
             steps {
-                sh 'terraform destroy -auto-approve'
+                sh 'terraform destroy -auto-approve -lock=false'
             }
         }
     }
