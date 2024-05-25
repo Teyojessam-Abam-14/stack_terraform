@@ -79,7 +79,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply -input=false tfplan'
+                sh 'terraform plan -out=tfplan -input=false -lock=false'
             }
         }
 
