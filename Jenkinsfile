@@ -54,6 +54,29 @@ pipeline {
                 '''
             }
         }
+        stage('Get Assessment Template ARN') {
+            steps {
+                script {
+                    env.ASSESSMENT_TEMPLATE_ARN = sh(
+                        script: '''
+                            cd instances
+                            terraform output -raw assessment_template_arn
+                        ''',
+                        returnStdout: true
+                    ).trim()
+                }
+            }
+        }
+        stage ('Build Vulnerability Report'){
+           steps {
+               sh '''
+                cd instances
+                aws inspector start-assessment-run --assessment-run-name Hardeningrun_${VERSION} \
+                    --assessment-template-arn ${ASSESSMENT_TEMPLATE_ARN} \
+                    --region us-east-1
+                '''
+            }
+        }
         stage('Destroy Approval') {
             steps {
                 script {
