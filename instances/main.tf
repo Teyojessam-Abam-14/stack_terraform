@@ -72,7 +72,7 @@ resource "aws_instance" "application_server" {
   vpc_security_group_ids      = [aws_security_group.sg_22_80.id]
   associate_public_ip_address = true
   key_name                    = aws_key_pair.Stack_KP.key_name
-  user_data                   = base64decode(data.template_file.inspector_bootstrap.rendered)
+  user_data                   = base64encode(data.template_file.inspector_bootstrap.rendered)
 
   tags = {
     Name = "Test_Instance"
