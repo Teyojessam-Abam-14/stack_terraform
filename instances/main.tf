@@ -66,7 +66,7 @@ data "template_file" "inspector_bootstrap" {
 }
 
 resource "aws_instance" "application_server" {
-  ami                         = data.aws_ami.stack.id
+  ami                         = data.aws_ami.stack_ami.id
   instance_type               = "t2.micro"
   subnet_id                   = var.subnets[0]
   vpc_security_group_ids      = [aws_security_group.sg_22_80.id]
