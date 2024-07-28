@@ -28,35 +28,6 @@ sudo systemctl enable docker
 # Update tcp_keepalive settings
 sudo /sbin/sysctl -w net.ipv4.tcp_keepalive_time=200 net.ipv4.tcp_keepalive_intvl=200 net.ipv4.tcp_keepalive_probes=5
 
-# Uncomment and modify the EFS mount section if needed
-# EFS_DNS=<your EFS DNS>
-# MOUNT_POINT=/mnt/efs
-# sudo mkdir -p ${MOUNT_POINT}
-# sudo chown ec2-user:ec2-user ${MOUNT_POINT}
-# echo "${EFS_DNS}:/ ${MOUNT_POINT} nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,_netdev 0 0" | sudo tee -a /etc/fstab
-# sudo mount -a -t nfs4
-
-# Uncomment and modify the CloudWatch agent section if needed
-# wget https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
-# sudo rpm -U ./amazon-cloudwatch-agent.rpm
-# sudo mkdir -p /opt/aws/amazon-cloudwatch-agent/etc/
-# sudo tee /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json > /dev/null << 'EOF'
-# {
-#     "metrics": {
-#         "metrics_collected": {
-#             "mem": {
-#                 "measurement": [
-#                     "mem_used_percent"
-#                 ],
-#                 "metrics_collection_interval": 30
-#             }
-#         }
-#     }
-# }
-# EOF
-# sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s
-
-# Allow some time for services to initialize
 sleep 100
 
 # Update ecs-init
